@@ -1,19 +1,19 @@
 import express from "express";
 import { auth } from "../auth/auth";
-import TasksController from "../controllers/tasks";
+import PostsController from "../controllers/posts";
 import UsersController from "../controllers/users";
 
 const router = express.Router();
 
-const tasksController = new TasksController();
+const postsController = new PostsController();
 const usersController = new UsersController();
 
 router
-  .route("/tasks")
-  .get(auth, tasksController.getTasks)
-  .post(auth, tasksController.createTask);
+  .route("/posts")
+  .get(auth, postsController.getPosts)
+  .post(auth, postsController.createPost);
 
-router.route("/tasks/:id").delete(auth, tasksController.deleteTask);
+// router.route("/posts/:id").delete(auth, postsController.deletePost);
 
 router.route("/users").post(usersController.createUser).post();
 router.route("/users/login").post(usersController.loginUser);
