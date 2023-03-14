@@ -24,6 +24,7 @@ class UsersController {
           data: {
             email: req.body.email,
             hash: hash,
+            nickname: req.body.nickname,
           },
         });
         const token = await createJwtToken(newUser);
