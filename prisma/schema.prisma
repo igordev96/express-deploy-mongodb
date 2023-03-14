@@ -23,8 +23,8 @@ model User {
 model Post {
   id             String @id @default(auto()) @map("_id") @db.ObjectId
   author         User   @relation(fields: [authorNickname], references: [nickname])
-  authorNickname String
-  title          String
+  authorNickname String @unique
+  title          String @unique
   content        String
 
   @@map("Posts")
