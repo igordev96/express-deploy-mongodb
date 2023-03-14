@@ -24,6 +24,14 @@ class PostsController {
       if (!req.body.authorNickname || !req.body.title || !req.body.content) {
         throw new Error("The task must have a title, an author and a content");
       } else {
+        const userDb = await prisma.user.findFirst({
+          where: {
+            nickname: req.body.nickname,
+          },
+        });
+        if (!userDb) {
+          throw new Error("No user with this nickname");
+        }
         const newPost = await prisma.post.create({
           data: {
             authorNickname: req.body.authorNickname,
