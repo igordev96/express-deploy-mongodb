@@ -26,7 +26,7 @@ class PostsController {
       } else {
         const userDb = await prisma.user.findFirst({
           where: {
-            nickname: req.body.nickname,
+            nickname: req.body.authorNickname,
           },
         });
         if (!userDb) {
