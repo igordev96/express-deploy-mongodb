@@ -11,13 +11,21 @@ class UsersController {
       if (!req.body.email || !req.body.password) {
         throw new Error("Please enter your email or password");
       } else {
-        const userDb = await prisma.user.findFirst({
+        const userDbByEmail = await prisma.user.findFirst({
           where: {
             email: req.body.email,
           },
         });
-        if (userDb) {
+        if (userDbByEmail) {
           throw new Error("This email is already used by another user");
+        }
+        const userDbByNickname = await prisma.user.findFirst({
+          where: {
+            nickname: req.body.nickname,
+          },
+        });
+        if (userDbByNickname) {
+          throw new Error("This nickname is already used by another user");
         }
         const hash = await argon2.hash(req.body.password);
         const newUser = await prisma.user.create({
